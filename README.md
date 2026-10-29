@@ -2,6 +2,15 @@
 
 Rein Protocol Foundation 的 LaTeX 论文模板，适合录用后的作者版本、技术报告与预印本。使用官网现有 R 标识、Foundation 英文全称与暖黑/橙色配色。
 
+## 模板效果预览
+
+以下为单栏与双栏模板的首页截图，点击图片可查看大图。
+
+| 单栏 · 作者–年份引用 | 双栏 · 数字引用 |
+| --- | --- |
+| [![单栏论文模板首页预览](docs/previews/single-column.png)](docs/previews/single-column.png) | [![双栏论文模板首页预览](docs/previews/double-column.png)](docs/previews/double-column.png) |
+| [查看完整单栏 PDF](output/REIN-single-column.pdf) | [查看完整双栏 PDF](output/REIN-double-column.pdf) |
+
 ## 从 GitHub 创建自己的论文仓库
 
 点击本仓库的 **Use this template → Create a new repository**，即可在自己的账号或组织下创建论文仓库。
