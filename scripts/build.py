@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build both papers with latexmk/pdfLaTeX, falling back to Tectonic.
+"""Build both papers with latexmk/pdfLaTeX, using Tectonic when latexmk is unavailable.
 
 Usage: python3 scripts/build.py [--engine /path/to/tectonic] [--offline]
 Build logs and intermediates are retained in build/. Final PDFs go in output/.
@@ -20,9 +20,21 @@ def main():
                         help="Tectonic: use cached TeX resources only")
     parser.add_argument("--bundle", help="Tectonic: optional local TeX resource bundle")
     args = parser.parse_args()
-    engine = args.engine or shutil.which("latexmk") or shutil.which("tectonic")
+    engine = (shutil.which(args.engine) if args.engine else
+              shutil.which("latexmk") or shutil.which("tectonic"))
     if not engine:
-        sys.exit("Install a TeX distribution with latexmk, or install Tectonic.")
+        sys.exit("TeX compiler not found or not executable. Install full TeX Live/MacTeX "
+                 "(latexmk, pdflatex, bibtex), or Tectonic, and add it to PATH. "
+                 "See README.md: Build and package locally. "
+                 "Python/pip does not install these tools.")
+    if "latexmk" in Path(engine).name:
+        missing = [tool for tool in ("pdflatex", "bibtex") if not shutil.which(tool)]
+        if missing:
+            sys.exit("Missing TeX tools on PATH: " + ", ".join(missing) +
+                     ". Install full TeX Live/MacTeX and reopen your terminal. "
+                     "See README.md: Build and package locally.")
+        if args.offline or args.bundle:
+            parser.error("--offline and --bundle require --engine tectonic")
     output = ROOT / "output"
     output.mkdir(exist_ok=True)
     sources = [p for p in [ROOT / "main.tex", ROOT / "main-double.tex"] if p.exists()]

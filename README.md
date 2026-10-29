@@ -48,14 +48,61 @@ Both layouts use `reinpaper.cls`. Template commands use the `\rein` prefix; `\st
 
 ## Build and package locally
 
+### Install dependencies first
+
+These tools are **not assumed to be installed with your operating system**. The scripts do not install dependencies automatically.
+
+- **Python 3**: install from [python.org](https://www.python.org/downloads/) or your OS package manager. Both scripts use only the Python standard library; no `pip install` or `requirements.txt` is needed.
+- **A TeX toolchain**: choose one of the options below. LaTeX packages and fonts are separate from Python libraries.
+- **Git**: needed only for `git clone`; downloading and extracting this repository's ZIP is an alternative.
+
+**Option A: TeX Live / MacTeX (pdfLaTeX).** On macOS, install the full [MacTeX distribution](https://tug.org/mactex/). On Linux or Windows, follow the [TeX Live installation guide](https://tug.org/texlive/quickinstall.html) and select the full scheme. This includes the LaTeX packages and fonts used by the template; a minimal TeX installation may not. Reopen your terminal after installation and ensure the TeX binary directory is on `PATH`.
+
+Verify before building:
+
+```bash
+python3 --version
+latexmk -v
+pdflatex --version
+bibtex --version
+```
+
+On Windows, use `py -3` in place of `python3` throughout these instructions if that is your Python launcher.
+
+**Option B: Tectonic.** Follow the [official installation instructions](https://tectonic-typesetting.github.io/book/latest/installation/). On macOS with Homebrew already installed:
+
+```bash
+brew install tectonic
+tectonic --version
+```
+
+Tectonic downloads required TeX resources during compilation, so the first build needs internet access. `--offline` uses cached resources only and will fail if any required resource is missing. Tectonic uses a different engine from pdfLaTeX, so typography and line breaks can differ.
+
+### Compile the PDFs
+
 ```bash
 git clone https://github.com/rein-protocol-foundation/rein-paper-template.git
 cd rein-paper-template
 python3 scripts/build.py
+```
+
+The script selects `latexmk` first, or Tectonic if `latexmk` is unavailable. To select Tectonic explicitly:
+
+```bash
+python3 scripts/build.py --engine tectonic
+```
+
+If a build reports a missing `.sty` file or font, install it through your TeX distribution's package manager (not `pip`), or use the full distribution above. Compilation logs are saved under `build/<layout>/compile.log`. Missing executables must be installed and available on `PATH` before retrying.
+
+### Package for Overleaf (optional)
+
+```bash
 python3 scripts/package.py
 ```
 
-Building requires `latexmk` and pdfLaTeX from TeX Live/MacTeX. Alternatively, run `python3 scripts/build.py --engine tectonic`. Intermediate files go into the ignored `build/` directory; PDFs and self-contained ZIP packages go into `output/`. Packages exclude private material, build caches, and third-party papers.
+Packaging needs **only Python 3** and does not compile or refresh PDFs. Run the build step first if you changed the paper and want updated PDF previews. Intermediate build files go into the ignored `build/` directory; PDFs and ZIP packages go into `output/`. Overleaf packages are English-only and exclude private material, build caches, and third-party papers.
+
+If you use Overleaf, upload one of the provided ZIPs and select **pdfLaTeX**; you do not need to install Python or TeX locally.
 
 ## Provenance
 

@@ -48,14 +48,61 @@ Foundation 官网：https://rein-protocol.org 。示例作者和邮箱均为占�
 
 ## 本地编译与打包
 
+### 先安装依赖
+
+这些工具**并非操作系统默认自带**，脚本也不会自动安装它们。
+
+- **Python 3**：通过 [python.org](https://www.python.org/downloads/) 或系统包管理器安装。两个脚本仅使用 Python 标准库，不需要 `pip install` 或 `requirements.txt`。
+- **TeX 工具链**：选择下面一种方案。LaTeX 宏包和字体不是 Python 库。
+- **Git**：仅克隆仓库需要；也可下载并解压仓库 ZIP。
+
+**方案 A：TeX Live / MacTeX（pdfLaTeX）。** macOS 安装完整的 [MacTeX](https://tug.org/mactex/)；Linux 或 Windows 按 [TeX Live 安装指南](https://tug.org/texlive/quickinstall.html)选择 full scheme。完整发行版包含模板使用的宏包和字体，精简安装可能缺包。安装后重新打开终端，确保 TeX 可执行文件目录位于 `PATH`。
+
+编译前检查：
+
+```bash
+python3 --version
+latexmk -v
+pdflatex --version
+bibtex --version
+```
+
+Windows 如果使用 Python launcher，将所有命令中的 `python3` 替换为 `py -3`。
+
+**方案 B：Tectonic。** 按[官方安装说明](https://tectonic-typesetting.github.io/book/latest/installation/)安装。macOS 已有 Homebrew 时可运行：
+
+```bash
+brew install tectonic
+tectonic --version
+```
+
+Tectonic 编译时会下载所需 TeX 资源，首次编译需要联网。`--offline` 只使用缓存，资源不完整时会失败。Tectonic 与 pdfLaTeX 使用不同引擎，字体和换行可能存在差异。
+
+### 编译 PDF
+
 ```bash
 git clone https://github.com/rein-protocol-foundation/rein-paper-template.git
 cd rein-paper-template
 python3 scripts/build.py
+```
+
+脚本优先选择 `latexmk`，未找到时才选择 Tectonic。也可显式指定：
+
+```bash
+python3 scripts/build.py --engine tectonic
+```
+
+若缺少 `.sty` 文件或字体，请通过 TeX 发行版的包管理器安装（不是 `pip`），或使用上述完整发行版。编译日志位于 `build/<layout>/compile.log`。若缺少可执行文件，先安装并配置 `PATH`，再重试。
+
+### 打包 Overleaf（可选）
+
+```bash
 python3 scripts/package.py
 ```
 
-编译需要 TeX Live/MacTeX 的 `latexmk` 与 pdfLaTeX，或 `python3 scripts/build.py --engine tectonic`。中间文件保存在忽略的 `build/`，PDF 和自包含 ZIP 写入 `output/`。ZIP 不包含私有资料、构建缓存或他人的论文。
+打包**只需要 Python 3**，不会编译或刷新 PDF。修改论文后若需要更新 PDF 预览，应先运行编译步骤。中间文件保存在忽略的 `build/`，PDF 和 ZIP 写入 `output/`。Overleaf 包仅包含英文内容，不包含私有资料、构建缓存或他人的论文。
+
+使用 Overleaf 时，直接上传提供的 ZIP 并选择 **pdfLaTeX** 即可，无需在本机安装 Python 或 TeX。
 
 ## 来源
 
