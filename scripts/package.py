@@ -6,12 +6,12 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output"
 OUTPUT.mkdir(exist_ok=True)
-SHARED = ["reinpaper.cls", "macros.tex", "references.bib", "README.md", "README-zh.md", "PROVENANCE.md"]
+SHARED = ["reinpaper.cls", "macros.tex", "references.bib", "README.md", "PROVENANCE.md"]
 
 def add_file(z, source, destination=None):
     p = ROOT / source
-    if source in ("README.md", "README-zh.md"):
-        text = p.read_text()
+    if source == "README.md":
+        text = p.read_text().replace("English | [Chinese](README-zh.md)\n\n", "")
         base = "https://github.com/rein-protocol-foundation/rein-paper-template/blob/main/"
         text = text.replace("](docs/previews/", "](" + base + "docs/previews/")
         text = text.replace("](output/", "](" + base + "output/")
