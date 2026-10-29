@@ -6,11 +6,18 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output"
 OUTPUT.mkdir(exist_ok=True)
-SHARED = ["reinpaper.cls", "macros.tex", "references.bib", "README.md", "PROVENANCE.md"]
+SHARED = ["reinpaper.cls", "macros.tex", "references.bib", "README.md", "README-zh.md", "PROVENANCE.md"]
 
 def add_file(z, source, destination=None):
     p = ROOT / source
-    z.write(p, destination or source)
+    if source in ("README.md", "README-zh.md"):
+        text = p.read_text()
+        base = "https://github.com/rein-protocol-foundation/rein-paper-template/blob/main/"
+        text = text.replace("](docs/previews/", "](" + base + "docs/previews/")
+        text = text.replace("](output/", "](" + base + "output/")
+        z.writestr(destination or source, text)
+    else:
+        z.write(p, destination or source)
 
 for layout in ["single", "double", "complete"]:
     name = f"REIN-{layout}-column-Overleaf.zip" if layout != "complete" else "REIN-complete-Overleaf-kit.zip"

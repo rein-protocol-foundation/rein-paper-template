@@ -1,50 +1,52 @@
 # rein-paper-template
 
-Rein Protocol Foundation 的 LaTeX 论文模板，适合录用后的作者版本、技术报告与预印本。使用官网现有 R 标识、Foundation 英文全称与暖黑/橙色配色。
+English | [Chinese](README-zh.md)
 
-## 模板效果预览
+The Rein Protocol Foundation LaTeX paper template for author accepted manuscripts, technical reports, and preprints. It uses the Foundation's R mark, full name, and warm black/orange palette.
 
-以下为单栏与双栏模板的首页截图，点击图片可查看大图。
+## Template previews
 
-| 单栏 · 作者–年份引用 | 双栏 · 数字引用 |
+First-page screenshots of the single-column and double-column layouts. Click an image to view it at full size.
+
+| Single column · Author–year citations | Double column · Numeric citations |
 | --- | --- |
-| [![单栏论文模板首页预览](docs/previews/single-column.png)](docs/previews/single-column.png) | [![双栏论文模板首页预览](docs/previews/double-column.png)](docs/previews/double-column.png) |
-| [查看完整单栏 PDF](output/REIN-single-column.pdf) | [查看完整双栏 PDF](output/REIN-double-column.pdf) |
+| [![Single-column paper template preview](docs/previews/single-column.png)](docs/previews/single-column.png) | [![Double-column paper template preview](docs/previews/double-column.png)](docs/previews/double-column.png) |
+| [View full single-column PDF](output/REIN-single-column.pdf) | [View full double-column PDF](output/REIN-double-column.pdf) |
 
-## 从 GitHub 创建自己的论文仓库
+## Create your own paper repository
 
-点击本仓库的 **Use this template → Create a new repository**，即可在自己的账号或组织下创建论文仓库。
+Click **Use this template → Create a new repository** to create a paper repository under your own account or organization.
 
-## 直接使用
+## Use with Overleaf
 
-下载 `output/REIN-complete-Overleaf-kit.zip` 并上传 Overleaf。选择 **pdfLaTeX**：
+Download `output/REIN-complete-Overleaf-kit.zip` and upload it to Overleaf. Select **pdfLaTeX** as the compiler:
 
-- `main.tex`：单栏，作者–年份引用。
-- `main-double.tex`：双栏，数字引用。
+- `main.tex`: single-column layout with author–year citations.
+- `main-double.tex`: double-column layout with numeric citations.
 
-只需要一种版式时，下载对应的 `REIN-single-column-Overleaf.zip` 或 `REIN-double-column-Overleaf.zip`，其入口均为 `main.tex`。`output/` 同时提供两份 PDF 预览。
+For just one layout, download `REIN-single-column-Overleaf.zip` or `REIN-double-column-Overleaf.zip`. Both standalone packages use `main.tex` as their entry point. The `output/` directory also contains PDF previews of both layouts.
 
-## 改成自己的论文
+## Adapt the template for your paper
 
-1. 编辑 `paper-info-single.tex` 或 `paper-info-double.tex`：题目、真实作者、单位、邮箱、短标题、关键词。
-2. 将 `\reinstatus{RESEARCH TEMPLATE}` 改为 `\reinstatus{AUTHOR ACCEPTED MANUSCRIPT}`，填写真实版本号。模板本身没有录用声明。
-3. 用实际论文替换 `sections/single/` 或 `sections/double/` 中的教学示例；替换 `references.bib`、插图与实验结果。
-4. 在正文添加真实会议/期刊名称、年份、DOI 及需要的出版说明。按出版方允许的作者版本与格式要求上传；本模板不替代会议官方 camera-ready 样式。
-5. 按需启用 `\reinproject[标签]{URL}`、`\reingithub{URL}`、`\reindataset[标签]{URL}`。这些链接默认不显示，不要把机构首页误作论文实验资源。
+1. Edit `paper-info-single.tex` or `paper-info-double.tex` with your title, actual authors, affiliations, email, short title, and keywords.
+2. Set `\reinstatus{...}` to your manuscript's actual status and enter its version. Use `\reinstatus{AUTHOR ACCEPTED MANUSCRIPT}` only after acceptance; the default `RESEARCH TEMPLATE` does not claim acceptance.
+3. Replace the instructional examples in `sections/single/` or `sections/double/` with your paper. Replace `references.bib`, figures, and experimental results with your own material.
+4. Add the actual conference or journal name, year, DOI, and required publication notices. Follow the publisher's author-version and formatting policies; this template does not replace an official camera-ready style.
+5. Optionally enable `\reinproject[label]{URL}`, `\reingithub{URL}`, and `\reindataset[label]{URL}`. These links are hidden by default. Do not use the Foundation homepage as a substitute for a paper's research artifacts.
 
-Foundation 官网：https://rein-protocol.org 。示例作者和邮箱均为占位符，不代表实际作者或研究成果。
+Foundation website: https://rein-protocol.org. Example authors and email addresses are placeholders, not actual authors or research results.
 
-## 可选功能
+## Optional features
 
-- `\reinorcid{真实 ORCID}`：在作者名后添加 ORCID 链接。
-- `\reinpartner{机构名称}{assets/partner-logo.pdf}`：添加合作机构 Logo；默认隐藏。
-- `\reinacknowledgments{...}`：致谢。
-- `anonymous` 类选项：隐藏模板管理的作者、机构、Logo、资源链接、致谢与身份元数据。正文、自引和自带图片仍需自行检查。
-- `monochrome` 类选项：正文使用灰度配色；正式 Logo 保留原始品牌颜色。
+- `\reinorcid{actual ORCID}`: add an ORCID link after an author's name.
+- `\reinpartner{Institution name}{assets/partner-logo.pdf}`: add a partner institution's logo; hidden by default.
+- `\reinacknowledgments{...}`: add acknowledgments.
+- `anonymous` class option: hide template-managed authors, affiliations, logos, resource links, acknowledgments, and identifying metadata. Review the body text, self-citations, and your own images separately.
+- `monochrome` class option: use grayscale styling for the paper; the official logo retains its original brand colors.
 
-共享类为 `reinpaper.cls`，命令前缀为 `\rein`；公式中的 `\star` 仍是数学符号。
+Both layouts use `reinpaper.cls`. Template commands use the `\rein` prefix; `\star` remains a mathematical symbol.
 
-## 本地编译与打包
+## Build and package locally
 
 ```bash
 git clone https://github.com/rein-protocol-foundation/rein-paper-template.git
@@ -53,8 +55,8 @@ python3 scripts/build.py
 python3 scripts/package.py
 ```
 
-编译需要 TeX Live/MacTeX 的 `latexmk` 与 pdfLaTeX，或 `python3 scripts/build.py --engine tectonic`。中间文件保存在忽略的 `build/`，PDF 和自包含 ZIP 写入 `output/`。ZIP 不包含私有资料、构建缓存或他人的论文。
+Building requires `latexmk` and pdfLaTeX from TeX Live/MacTeX. Alternatively, run `python3 scripts/build.py --engine tectonic`. Intermediate files go into the ignored `build/` directory; PDFs and self-contained ZIP packages go into `output/`. Packages exclude private material, build caches, and third-party papers.
 
-## 来源
+## Provenance
 
-上游来源、固定版本与授权状态见 [PROVENANCE.md](PROVENANCE.md)。来源说明不出现在论文排版中。此目录独立于网站代码，不依赖 Node.js 或 Next.js。
+See [PROVENANCE.md](PROVENANCE.md) for the upstream source, pinned revision, and licensing status. Provenance notes do not appear in the typeset paper. This template is independent of the website code and requires neither Node.js nor Next.js.
